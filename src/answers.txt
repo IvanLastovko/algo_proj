@@ -1,0 +1,10 @@
+bcd
+123
+\.
+\d
+\.
+aa+b*c+
+[cmf]an
+^Mission: successful$
+ab{3,5}c
+^(file.+)\.txt$

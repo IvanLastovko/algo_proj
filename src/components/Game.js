@@ -5,61 +5,64 @@ export const Game = () => {
 
     const words = {
         '1': {
+            "name": "Letter characters",
             "words": ['abcd', 'abcde', 'bcde'],
             "matches": [true, true, true],
-            "explanations": [
-                "Regular expressions are extremely useful in extracting information from text such as code, log files, spreadsheets, or even documents. And while there is a lot of theory behind formal languages, the following lessons and examples will explore the more practical uses of regular expressions.",
-                "The first thing to recognize when using regular expressions is that everything is essentially a character, and we are writing patterns to match a specific sequence of characters (also known as a string). Most patterns use normal ASCII, which includes letters, digits, punctuation and other symbols on your keyboard like %#$@!, but unicode characters can also be used to match any type of international text.",
-            ]
+            "explanations": ["In the regex engine, letter characters are used to match the first occurrence of these letters in the string. For these purposes, we need to create a pattern that may contain both single or multiple letters for string search. If a pattern has multiple letters the engine would match the first sequence of these letters in the string. For example, if we have a string “Dogs and cats can be your friends” the regex pattern ‘s‘ would match ‘s’ in the word “Dogs”. For the same example pattern ‘can’ would match the word “can” in the string. Note that for pattern matching letters ‘A’ and ‘a’ have different meaning and letters with upper cases wouldn’t match the letters with lower cases and vice versa."]
         },
         '2': {
-            "words": ['abc123xyz', '"123"', 'const num = 123;', '456'],
-            "matches": [true, true, true, true],
-            "explanations": ["Characters include normal letters, but digits as well. In fact, numbers 0-9 are also just characters and if you look at an ASCII table, they are listed sequentially",
-            "Over the various lessons, you will be introduced to a number of special metacharacters used in regular expressions that can be used to match a specific type of character. In this case, the character \\d can be used in place of any digit from 0 to 9. The preceding slash distinguishes it from the simple d character and indicates that it is a metacharacter. \\D represents any non-digit character."]
+            "name": "Digits",
+            "words": ['abc123xyz', '"123"', 'const num = 123;', '1?23'],
+            "matches": [true, true, true, false],
+            "explanations": ["Regex engine can also match the numbers in a string as well. The pattern for a string search may contain single or multiple numbers and it would match only the first occurrence of these digits in the string. For example, the pattern ‘2’ in a string “abc1 abc2 abc3” would match ‘2’ in “abc2”.  For the string “11223344” the pattern ‘1234’ wouldn’t match anything but the pattern ‘2233’ would have a match."]
         },
         '3': {
+            "name": "Special characters",
             "words": ['cat.', '896.', '?=+.', 'abc1'],
             "matches": [true, true, true, false],
-            "explanations": ["In some card games, the Joker is a wildcard and can represent any card in the deck. With regular expressions, you are often matching pieces of text that you don't know the exact contents of, other than the fact that they share a common pattern or structure (eg. phone numbers or zip codes).",
-            "Similarly, there is the concept of a wildcard, which is represented by the . (dot) metacharacter, and can match any single character (letter, digit, whitespace, everything). You may notice that this actually overrides the matching of the period character, so in order to specifically match a period, you need to escape the dot by using a slash \\. accordingly."]
+            "explanations": ["Regex engine supports characters from ASCII table. Except letters and digits regex may use special characters for pattern matching. Some of these characters called metacharacters and they may perform special operations in pattern searching. These characters are backslash \\, the caret ^, the dollar sign $, the period ., the vertical bar |, the question mark ?, the Kleene star *, the plus sign + , the opening and closing parenthesis ( ), the opening and clothing square brackets [ ], and the opening and clothing curly braces { } [1]. The operations connected with these characters will be in next chapters. In order to use them for pattern matching these characters must contain backslash before them. Backlash allows to use metacharacters as usual characters. For example, the pattern ‘\\( 1 \\+ 2 \\) \\*2 = 6’ would have a match in the string “12 - (1+2)*2 = 6”."]
         },
         '4': {
-            "words": ["can", 'man', 'fan', 'dan', 'ran', 'pan'],
+            "name": "Character classes",
+            "words": ["123", '2+2=4?', 'error 404', 'cat', 'dog', 'ball'],
             "matches": [true, true, true, false, false, false],
-            "explanations": ["The dot metacharacter from the last lesson is pretty powerful, but sometimes too powerful. If we are matching phone numbers for example, we don't want to validate the letters \"(abc) def-ghij\" as being a valid number!",
-            "There is a method for matching specific characters using regular expressions, by defining them inside square brackets. For example, the pattern [abc] will only match a single a, b, or c letter and nothing else."]
+            "explanations": ["In order to perform more flexible matching for multiple strings character classes are used. For matching any digit pattern ‘\\d’ can be used. Each class has its negated version. Class ‘\\d’ has negated class ‘\\D’ which matches all characters and letters from ASCII table except digits. Also there is a character class ‘\\w’ that matches upper and lower letters, digits and underscore ‘_’. That class has negated version ‘\\W’ which matches other ASCII table characters that were not covered by ‘\\w’.  There are also character class that matches whitespace separators. This class is ‘\\s’ and it covers a space, tab, carriage return, line or form feed separators [2]. The negated class of ‘\\s’ is ‘\\S’ and it matches all characters from ASCII table except whitespaces. For example, one of the options to match the string “1b c2” is the pattern ‘\\d\\w\\s\\S\\w’."]
         },
         '5': {
-            "words": ['hog', 'bog', 'dog'],
-            "matches": [true, true, ],
-            "explanations": ["In some cases, we might know that there are specific characters that we don't want to match too, for example, we might only want to match phone numbers that are not from the area code 650.",
-            "To represent this, we use a similar expression that excludes specific characters using the square brackets and the ^ (hat). For example, the pattern [^abc] will match any single character except for the letters a, b, or c."]
+            "name": "Dot",
+            "words": ['cat.', 'dog.', 'ice cream'],
+            "matches": [true, true, false],
+            "explanations": ["In regular expressions the metacharacter dot ‘.’ can match any single character from ASCII table. If there is a need to match a dot character in a string we need to add backlash before the dot in the pattern. For example, if there is a need to match make a full match of the string “Bottle.” the pattern may be look as ‘……\\.’."]
         },
         '6': {
-            "words": [''],
-            "matches": [true, true, true, true],
-            "explanations": []
+            "name": "Kleene star, plus sign and question mark",
+            "words": ['aaaabcc', 'aabbbbc', 'aacc', 'a'],
+            "matches": [true, true, true, false],
+            "explanations": ["Kleene star ‘*’ and plus sign ‘+’ are used when there is a need to match a repetitive characters, while the question mark matches optional character. They are located after the character or the group of characters. Kleene star is used for zero or more repetitions, plus sign is used for one or more repetitions and the question mark used for zero or one characters. For example, the pattern ‘abc*’ would match both the string “abc” and “ab”. The pattern ‘abc+’ would match the string “abccccc” but wouldn’t match “ab”. The pattern ‘abc?’ would match the strings “abc”, “ab” but wouldn’t match “acb”."]
         },
         '7': {
-            "words": [''],
-            "matches": [true, true, true, true],
-            "explanations": []
+            "name": "Square brackets",
+            "words": ['can', 'man', 'fan', 'dan', 'ran', 'pan'],
+            "matches": [true, true, true, false, false, false],
+            "explanations": ["Square brackets ‘[‘ and ‘]’ are used for representing the group of characters that may be used in the matching where only single character from the group will be used. That means that from the pattern ‘[akl]’ the regex engine would match either ‘a’ or ‘k’ or ‘l’. If there is a need to make a wider range of letters or digits that pattern may consist we may use dash ‘-‘ inside the square brackets. For the digits the pattern ‘[1-6]’ means that it matches single digit from 1 to 6 and for letters pattern ‘[b-f]’ would match the single letter from b to f. We may also use the caret ‘^’ inside the square brackets which would indicate that all the characters that are located in brackets are excluded from the matching. The pattern ‘[^dig]’ wouldn’t match the letters d, i, g, but would match any single character except them. The caret must be used before the characters that we need to exclude."]
         },
         '8': {
-            "words": [''],
-            "matches": [true, true, true, true],
-            "explanations": []
+            "name": "Caret and Dollar sign",
+            "words": ['Mission: successful', 'Last Mission: unsuccessful', 'Next Mission: successful upon capture of target'],
+            "matches": [true, false, false],
+            "explanations": ["If there is a need to specify the start and the end of the pattern sequence we may the caret ‘^’ at the start of the sequence and dollar sign ‘$’at the end of the sequence. For example, if there is a string “I love cats and dogs” and for matching such string the pattern will be ‘^I love cats and dogs$’."]
         },
         '9': {
-            "words": [''],
-            "matches": [true, true, true, true],
-            "explanations": []
+            "name": "Curly braces",
+            "words": ['abbbbbc', 'abbbc', 'abc'],
+            "matches": [true, true, false],
+            "explanations": ["Curly braces ‘{‘  and ‘}’ are used in patterns to specify the number of repetitions during the matching. These braces may contain one or two digits that indicate the amount of repetitions. If curly braces contain two digits then left digit would be minimum amount of repetitions and right digit would be maximum amount. Curly braces are used after the characters or group of characters. For example, the pattern ‘b{5}’ would match exactly five ‘b’s, and the pattern ‘[ab]{2,5}’ would match between two and five characters which can be ‘a’ or ‘b’."]
         },
         '10': {
-            "words": [''],
-            "matches": [true, true, true, true],
-            "explanations": []
+            "name": "Parenthesis",
+            "words": ['file1.txt', 'file23.txt', 'text_file.pdf'],
+            "matches": [true, true, false],
+            "explanations": ["Opening ‘(’ and closing ‘)’ parenthesizes are used in patterns for matching the exact group of characters inside parenthesizes. The characters inside parenthesizes are placed in an exact sequence which will be used in pattern matching and inside parenthesizes may be located another parenthesizes which would contain subgroup. Inside groups may be located pipe symbol ‘|’ which shows that there could be different sequences of characters that can be captured during the matching. For example, the pattern ‘(abc|bbc)’ would match exactly “abc” or “bbc” without any other characters in string. The pattern ‘(1+\\s(big))’ would match exactly “11 big” or “1 big” etc."]
         },
     }
 
@@ -90,12 +93,13 @@ export const Game = () => {
     }, [level])
 
     return level <= maxLevel ? (<div className={'outer_box'}>
-        <h2 className={'level'}>Level {level}</h2>
+        <h2 className={'level'}>Level {level}. {words[level].name}</h2>
 
         {words[level].explanations.map((expl, key)=>{
             return <p key={key} className={'explanations'}>{expl}</p>
         })}
-
+        <br></br>
+        <h2 className={'level'}>Task:</h2>
         {words[level].words.map((word, key) => {
             return (
                 <div key={'div' + key} style={{'display': 'flex'}}>
