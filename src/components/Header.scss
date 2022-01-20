@@ -1,0 +1,30 @@
+.header {
+  background-color: rgba(139, 46, 246, 0.78);
+  padding: 10px 0 10px 0;
+
+  .header_p {
+    background-color: rgba(139, 46, 246, 0.51);
+    border-radius: 3px;
+    border: 1px solid #a961fb;
+    width: 8rem;
+    text-align: center;
+    font-size: 10px;
+    word-wrap: normal;
+    margin: 0 0 0 70%;
+    padding: 5px 0 5px 0;
+    box-shadow: 2px 2px 2px 0px #9a57dc;
+    color: #e5e4e4;
+  }
+
+  .header_p:hover{
+    cursor: pointer;
+    background-color: #962cff;
+    box-shadow: 2px 2px 4px 1px #ad57dc;
+    transition-duration: .2s;
+  }
+  .header_p:active{
+    cursor: pointer;
+    background-color: #8c39d4;
+    box-shadow: 2px 2px 2px 0px inset #a557dc;
+  }
+}

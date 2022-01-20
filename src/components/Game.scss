@@ -1,0 +1,231 @@
+$primary: #11998e;
+$secondary: #3860ef;
+$white: #fff;
+$gray: #9b9b9b;
+
+.outer_box {
+  margin: 5% 10%;
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;
+  //align-items: center;
+  height: 80vh;
+  min-height: 700px;
+  width: 80vw;
+  min-width: 500px;
+  background-color: rgba(0, 255, 247, 0.1);
+  overflow-y: scroll;
+  border-left: 7px solid darkblue;
+  border-top-left-radius: 5px;
+  //border-bottom: 100px solid #faf7ff;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 255, 0.25);
+  transition-duration: .2s;
+
+  &:hover {
+    box-shadow: 0 0 30px 5px rgba(0, 0, 255, 0.25);
+  }
+
+  .explanations {
+    margin: 10px 40px;
+    font-size: 20px;
+    //padding-bottom: 90px;
+  }
+
+  p.word {
+    margin: 10px 40px;
+    font-size: 24px;
+  }
+
+  p.match {
+    margin: 10px 40px;
+    font-size: 24px;
+    width: 10%;
+    color: red;
+  }
+
+  p.match.match_green {
+    color: green;
+  }
+
+  .level {
+    text-align: left;
+    padding-left: 4%;
+  }
+
+  .container_regex {
+    height: 100%;
+    display: flex;
+    position: relative;
+  }
+
+  .form__group {
+    position: relative;
+    //padding: 15px 0 0;
+    //margin-top: 10px;
+    width: 60%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .regex_input {
+    position: absolute;
+    bottom: 15px;
+    left: 40px;
+    font-family: inherit;
+    width: 90%;
+    border: 0;
+    border-bottom: 2px solid $gray;
+    outline: 0;
+    font-size: 1.3rem;
+    color: black;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+      color: grey;
+    }
+
+    &:placeholder-shown ~ .form__label {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 20px;
+    }
+  }
+
+  .form__label {
+    position: absolute;
+    bottom: 50px;
+    left: 10px;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $gray;
+  }
+
+  .regex_input:focus {
+    ~ .form__label {
+      position: absolute;
+      bottom: 50px;
+      left: 10px;
+      //display: block;
+      transition: 0.2s;
+      font-size: 1rem;
+      color: #117299;
+      font-weight: 500;
+    }
+
+    &::placeholder {
+      color: #d4d4d4;
+    }
+
+    padding-bottom: 6px;
+    font-weight: 500;
+    border-width: 3px;
+    border-image: linear-gradient(to right, $primary, $secondary);
+    border-image-slice: 1;
+  }
+
+  /* reset input */
+  .regex_input {
+    &:required, &:invalid {
+      box-shadow: none;
+    }
+  }
+
+  //.regex_button {
+  //  border-radius: 7px;
+  //  width: 30%;
+  //  height: 40px;
+  //  text-align: center;
+  //  font-size: 30px;
+  //  border: 3px solid #ff8c00;
+  //  background-color: #8e6300;
+  //}
+
+}
+
+.regex_button {
+  position: absolute;
+  bottom: 50px;
+  right: 10px;
+  bottom: 10px;
+  width: 30%;
+  height: 40px;
+  background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: "Inter UI", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  height: 4rem;
+  padding: 0 1.6rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all .5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.regex_button:hover {
+  box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+  transition-duration: .2s;
+}
+
+@media (min-width: 768px) {
+  .regex_button {
+    padding: 0 2.6rem;
+  }
+}
+
+.regex_button_disabled {
+  background-image: linear-gradient(92.88deg, #7d7d7d 43.89%, #616161 64.72%);
+  cursor: not-allowed;
+
+  &:hover {
+    box-shadow: 0 0 0 0;
+    transition-duration: .2s;
+  }
+}
+
+.game_over {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  h3{
+    font-size: 40px;
+  }
+
+  .restart_button {
+    margin-top: 30px;
+    width: 180px;
+    text-align: center;
+    height: 40px;
+    background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-family: "Inter UI", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    height: 4rem;
+    padding: 0 1.6rem;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+    transition: all .5s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+}
